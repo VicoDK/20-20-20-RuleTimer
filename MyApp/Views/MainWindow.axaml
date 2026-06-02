@@ -1,14 +1,21 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MyApp.ViewModels"
+        xmlns:local="using:MyApp.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MyApp.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        x:DataType="local:MainWindow"
+        Icon="/Assets/timer.ico"
         Title="20/20/20 Rule timer"
-        SizeToContent="WidthAndHeight" CanResize="False">
+        SizeToContent="WidthAndHeight" CanResize="False"
+        Background="#80000000"
+        TransparencyLevelHint="Blur"
+        WindowStartupLocation="Manual"
+        Topmost="True"
+        WindowDecorations="None">
+        
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -16,9 +23,15 @@
 
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid RowDefinitions="*,*" Margin="20">
-        <TextBlock Grid.Row="0" Text="Welcome to the 20/20/20 Rule timer!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Name="TimerTextBlock" Grid.Row="1" Text="Timer : 20:00" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
+
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <Panel> <!-- 20/20/20 Rule Timer -->
+            <TextBlock Name="TimerTextBlock" Text="20/20/20 Timer : 20:00" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+            <Button Name="EyeBreak" Content="Eye Break" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="EyeBreakButton_Click"/>
+
+        </Panel>
+    </StackPanel>
+    
+
 
 </Window>
