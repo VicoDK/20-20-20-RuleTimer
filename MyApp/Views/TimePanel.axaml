@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MyApp.ViewModels"
+        xmlns:local="using:MyApp.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MyApp.Views.TimePanel"
+        x:DataType="local:TimePanel"
+        Icon="/Assets/timer.ico"
+        Title="20/20/20 Rule timer"
+        SizeToContent="WidthAndHeight" CanResize="False"
+        Background="#80000000"
+        TransparencyLevelHint="Blur"
+        WindowStartupLocation="Manual"
+        Topmost="True"
+        WindowDecorations="None">
+        
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+
+            <!--<StackPanel> 
+                <TextBlock x:Name="TimerName" Text="TimerName : StartTime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,2,10,2"/>
+                <Button x:Name="TimerName+BreakButton" Content="TimerName Break" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="BreakButton_Click"/>
+                <Button x:Name="TimerName+BackToWorkButton" Content="Back to Work" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="BackToWork_Click"/>
+            </StackPanel>-->
+
+    
+
+</Window>

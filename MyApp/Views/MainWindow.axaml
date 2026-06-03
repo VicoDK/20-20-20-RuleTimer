@@ -4,18 +4,18 @@
         xmlns:local="using:MyApp.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="200"
+        Width="400"
+        Height="450"    
         x:Class="MyApp.Views.MainWindow"
         x:DataType="local:MainWindow"
         Icon="/Assets/timer.ico"
-        Title="20/20/20 Rule timer"
-        SizeToContent="WidthAndHeight" CanResize="False"
-        Background="#80000000"
+        Title="SimplyGreatTimer"
+        CanResize="False"
+        Background="#E6000000"
         TransparencyLevelHint="Blur"
         WindowStartupLocation="Manual"
-        Topmost="True"
-        WindowDecorations="None"
-        ShowInTaskbar="False">
+        >
         
 
     <Design.DataContext>
@@ -25,14 +25,19 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-        <Panel> <!-- 20/20/20 Rule Timer -->
-            <TextBlock Name="TimerTextBlock" Text="20/20/20 Timer : 20:00" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
-            <Button Name="EyeBreak" Content="Eye Break" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="EyeBreakButton_Click"/>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
+ 
+        <TextBlock x:Name="WelcomeText" Text="Welcome to SimplyGreatTimer!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <CheckBox Name="TwentyTwentyTwentyTimer" 
+        Content="20/20/20 Timer"/>
+        <CheckBox Name="DeepWorkTimer" 
+        Content="Deep Work Timer"/>
 
-        </Panel>
+
+
+
+
+        <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>
+
     </StackPanel>
-    
-
-
 </Window>
