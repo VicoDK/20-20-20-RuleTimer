@@ -1,6 +1,7 @@
 ## SimplyGreatTimer
 
-SimplyGreatTimer is a simple timer app that can be used for studing or working at pc
+SimplyGreatTimer is a simple timer app that can be used for studing or working at pc <br>
+(it is still in early development)
 
 ## Features 
 
