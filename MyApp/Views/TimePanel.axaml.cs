@@ -1,11 +1,4 @@
-//to do 
-// plays sounds when needed 
-// fixe timings
-//check deep work
-
-
-
-
+//dotnet publish -c Release -p:PublishSingleFile=true -p:SelfContained=true -p:PublishTrimmed=true -p:DebugSymbols=false -p:DebugType=none
 
 using System;
 using System.Collections.Generic;
@@ -52,11 +45,30 @@ public partial class TimePanel : Window
         Content = timerPanel; // FIXED (removed self-add bug)
 
         timer.Start();
+        
+        /*Button Back = new Button
+        {
+            Content = $"Back",
+            Margin = new Thickness(10),
+            IsVisible = false
+        };
+
+        Back.Click += Back_Click;
+        timerPanel.Children.Add(Back);*/
+
     }
 
     public void PlaySound()
     {
         Console.Beep();
+    }
+
+    public void Back_Click(object sender, RoutedEventArgs e)
+    {
+
+
+        new MainWindow().Show();
+        this.Close();
     }
 }
 public class ClassicTimer
@@ -69,16 +81,17 @@ public class ClassicTimer
     Time = WorkTimeSet;
     BreakTimeSet = breakTimeSet;
     this.Name = name;
-    var panel = timerPanel;
+    StackPanel panel = timerPanel;
 
     TimerTextBlock = new TextBlock
     {
-        Text = $" {name} Timer : ",
+        Text = $" {name} Timer : {workTimeSet}",
+        
         HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
         VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
         Margin = new Thickness(10, 2, 10, 2)
     };
-
+    WorkUpdateTimerText(workTimeSet);
     panel.Children.Add(TimerTextBlock);
 
     if (needToBreakButton)
@@ -108,13 +121,6 @@ public class ClassicTimer
     }
 }
 
-
-
-
-
-
-
-    
 
     int WorkTimeSet; 
     int BreakTimeSet; 
@@ -251,16 +257,24 @@ public class ClassicTimer
     /// </summary>
     public void BreakButton_Click(object sender, RoutedEventArgs e)
     {
-        PlaySound();
+
         BreakButton_Click();
+    }
+
+    public void AutopBreakButton_Click()
+    {
+        PlaySound();
+
+        
     }
 
     public void BreakButton_Click()
     {
         WorkTimerState = ClassicTimerState.BreakTime;
         Time = BreakTimeSet;
-        
     }
+
+
 
     public void BackToWork_Click(object sender, RoutedEventArgs e)
     {
@@ -269,16 +283,16 @@ public class ClassicTimer
 
     public void BackToWork_Click()
     {   
+        WorkTimerState = ClassicTimerState.Work;
+        TimerTextBlock.IsVisible = true;
+        Time = WorkTimeSet;
+        WorkUpdateTimerText(Time);
         if (BackToWork != null)
         {
             BackToWork.IsVisible = false;
             
         }
-        TimerTextBlock.IsVisible = true;
 
-        Time = WorkTimeSet;
-        WorkUpdateTimerText(Time);
-        WorkTimerState = ClassicTimerState.Work;
     }
 
     public void PlaySound()

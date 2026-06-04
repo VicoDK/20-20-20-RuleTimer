@@ -18,47 +18,83 @@ public partial class MainWindow : Window
     {
         System.Diagnostics.Debug.WriteLine("0");
 
-        try
+
+
+
+
+        //workTimers
+        if (DeepWorkTimer.IsChecked == true)
         {
-            if (TwentyTwentyTwentyTimer.IsChecked == true)
-            {
-                var preset = new ClassicTimerPreset(
-                    5 ,
-                    5,
-                    true,
-                    false,
-                    "20-20-20"
-                );
+            var preset = new ClassicTimerPreset(
+                90 * 60,
+                20 * 60,
+                true,
+                true,
+                "DeepWork"
+            );
 
-                ClassicTimerPreset.Add(preset);
-            }
-
-            System.Diagnostics.Debug.WriteLine("2");
-
-            if (DeepWorkTimer.IsChecked == true)
-            {
-                var preset = new ClassicTimerPreset(
-                    90 * 60,
-                    20 * 60,
-                    true,
-                    true,
-                    "DeepWork"
-                );
-
-                ClassicTimerPreset.Add(preset);
-            }
-
-            System.Diagnostics.Debug.WriteLine("3");
-
-            TimePanel timePanel = new TimePanel(ClassicTimerPreset);
-
-            timePanel.Show();
-            this.Close();
+            ClassicTimerPreset.Add(preset);
         }
-        catch (Exception ex)
+
+
+        if (PomodoroTimer.IsChecked == true)
         {
-            System.Diagnostics.Debug.WriteLine(ex);
+            var preset = new ClassicTimerPreset(
+                25 * 60,
+                5 * 60,
+                true,
+                true,
+                "Pomodoro"
+            );
+
+            ClassicTimerPreset.Add(preset);
         }
+
+        if (_52_17Timer.IsChecked == true)
+        {
+            var preset = new ClassicTimerPreset(
+                57 * 60,
+                17 * 60,
+                true,
+                true,
+                "57-17"
+            );
+
+            ClassicTimerPreset.Add(preset);
+        }
+
+        //Extra Timers
+        if (TwentyTwentyTwentyTimer.IsChecked == true)
+        {
+            var preset = new ClassicTimerPreset(
+                20 * 60 ,
+                25,
+                true,
+                false,
+                "20-20-20"
+            );
+
+            ClassicTimerPreset.Add(preset);
+        }
+
+        if (_30_30rule.IsChecked == true)
+        {
+            var preset = new ClassicTimerPreset(
+                30 * 60 ,
+                30,
+                true,
+                false,
+                "30-30"
+            );
+
+            ClassicTimerPreset.Add(preset);
+        }
+
+        TimePanel timePanel = new TimePanel(ClassicTimerPreset);
+
+        timePanel.Show();
+        this.Close();
+
     }
 }
 

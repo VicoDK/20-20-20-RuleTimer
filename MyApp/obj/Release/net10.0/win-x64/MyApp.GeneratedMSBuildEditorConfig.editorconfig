@@ -39,3 +39,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [D:/20-20-20-RuleTimer/MyApp/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[D:/20-20-20-RuleTimer/MyApp/Views/TimePanel.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

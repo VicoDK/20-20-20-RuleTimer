@@ -26,15 +26,24 @@
     </Design.DataContext>
 
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
- 
-        <TextBlock x:Name="WelcomeText" Text="Welcome to SimplyGreatTimer!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="WelcomeText" Text="Welcome to SimplyGreatTimer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+        <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <RadioButton Name="DeepWorkTimer" 
+        Content="Deep Work Timer"/>
+        <RadioButton Name="PomodoroTimer" 
+        Content="Pomodoro Timer"/>
+        <RadioButton Name="_52_17Timer" 
+        Content="52/17 Timer"/>
+
+        <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <CheckBox Name="TwentyTwentyTwentyTimer" 
         Content="20/20/20 Timer"/>
-        <CheckBox Name="DeepWorkTimer" 
-        Content="Deep Work Timer"/>
-
-
-
+        <CheckBox Name="_30_30rule" 
+        Content="30-30 rule Timer"/>
 
 
         <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>

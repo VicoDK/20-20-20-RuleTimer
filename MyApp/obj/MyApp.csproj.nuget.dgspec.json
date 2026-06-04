@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {}
+    "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {}
   },
   "projects": {
-    "d:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {
+    "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
+        "projectUniqueName": "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
         "projectName": "MyApp",
-        "projectPath": "d:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
+        "projectPath": "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
         "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-        "outputPath": "d:\\20-20-20-RuleTimer\\MyApp\\obj\\",
+        "outputPath": "D:\\20-20-20-RuleTimer\\MyApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
