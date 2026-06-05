@@ -2,29 +2,31 @@ using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+
 
 namespace MyApp.Views;
 
 public partial class MainWindow : Window
 {
+    string LayoutPoint = "TopLeft";
     List<ClassicTimerPreset> ClassicTimerPreset = new();
 
     public MainWindow()
     {
         InitializeComponent();
+
+        PositionButton_Click(TopLeft, new RoutedEventArgs());
     }
 
     public void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine("0");
-
-
-
-
-
+  
+        bool TimerSelected = false;
         //workTimers
         if (DeepWorkTimer.IsChecked == true)
         {
+            TimerSelected = true;
             var preset = new ClassicTimerPreset(
                 90 * 60,
                 20 * 60,
@@ -39,6 +41,7 @@ public partial class MainWindow : Window
 
         if (PomodoroTimer.IsChecked == true)
         {
+            TimerSelected = true;
             var preset = new ClassicTimerPreset(
                 25 * 60,
                 5 * 60,
@@ -52,6 +55,7 @@ public partial class MainWindow : Window
 
         if (_52_17Timer.IsChecked == true)
         {
+            TimerSelected = true;
             var preset = new ClassicTimerPreset(
                 57 * 60,
                 17 * 60,
@@ -63,11 +67,28 @@ public partial class MainWindow : Window
             ClassicTimerPreset.Add(preset);
         }
 
+        if (CustomeTimer.IsChecked == true)
+        {
+            TimerSelected = true;
+            var preset = new ClassicTimerPreset(
+                (int.TryParse(CustomeTimerWorkTime.Text, out var w) ? w : 1) * 60,
+                (int.TryParse(CustomeTimerBreakTime.Text, out var b) ? b : 1) * 60,
+                true,
+                true,
+                "Custome"
+            );
+
+            ClassicTimerPreset.Add(preset);
+
+
+        }
+
         //Extra Timers
         if (TwentyTwentyTwentyTimer.IsChecked == true)
         {
+            TimerSelected = true;
             var preset = new ClassicTimerPreset(
-                20 * 60 ,
+                20 * 60,
                 25,
                 true,
                 false,
@@ -79,6 +100,7 @@ public partial class MainWindow : Window
 
         if (_30_30rule.IsChecked == true)
         {
+            TimerSelected = true;
             var preset = new ClassicTimerPreset(
                 30 * 60 ,
                 30,
@@ -90,12 +112,43 @@ public partial class MainWindow : Window
             ClassicTimerPreset.Add(preset);
         }
 
-        TimePanel timePanel = new TimePanel(ClassicTimerPreset);
+        TimePanel timePanel = new TimePanel(ClassicTimerPreset, LayoutPoint);
 
-        timePanel.Show();
-        this.Close();
+        if (TimerSelected)
+        {
+            timePanel.Show();
+            this.Close();
+            
+        }
 
     }
+
+    public void CustomeTimer_CheckedChanged(object? sender, RoutedEventArgs e)
+    {
+
+        CustomeTimerGrid.IsVisible = CustomeTimer.IsChecked ?? false; 
+        
+    }
+
+    private Button? _selectedButton;
+
+    private void PositionButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button clickedButton)
+            return;
+
+        if (_selectedButton != null)
+        {
+            _selectedButton.ClearValue(Button.BackgroundProperty);
+        }
+
+        clickedButton.Background = Brushes.Gray;
+
+        _selectedButton = clickedButton;
+        LayoutPoint = _selectedButton.Name;
+    }
+
+
 }
 
 public class ClassicTimerPreset

@@ -6,6 +6,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using Avalonia.Layout;
+using System.Formats.Asn1;
 
 namespace MyApp.Views;
 
@@ -16,11 +19,12 @@ public partial class TimePanel : Window
     List<ClassicTimer> timers = new();   // FIXED (was null before)
     StackPanel timerPanel = new StackPanel();
 
-    public TimePanel(List<ClassicTimerPreset> presets)
+
+    public TimePanel(List<ClassicTimerPreset> presets, string LayoutPoint)
     {
         InitializeComponent();
 
-        Position = new PixelPoint(0, 0);
+        this.Opened += (_, __) => SetPosition(LayoutPoint); 
 
         timer = new DispatcherTimer();
         timer.Interval = TimeSpan.FromSeconds(1);
@@ -46,16 +50,111 @@ public partial class TimePanel : Window
 
         timer.Start();
         
-        /*Button Back = new Button
+
+        //ai made this
+        // Create MenuFlyout
+        var menuButton = new Button
         {
-            Content = $"Back",
+            Content = "Menu",
             Margin = new Thickness(10),
-            IsVisible = false
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
+        menuButton.Classes.Add("timer-button");
+
+        // Create flyout
+        var flyout = new MenuFlyout
+        {
+            Placement = PlacementMode.BottomEdgeAlignedLeft
         };
 
-        Back.Click += Back_Click;
-        timerPanel.Children.Add(Back);*/
+        // Pause item
+        pauseItem = new MenuItem
+        {
+            Header = "Pause"
+        };
+        pauseItem.Classes.Add("timer-menu");
+        pauseItem.Click += Pause_Click;
 
+        
+
+
+        // Back item
+        var backItem = new MenuItem
+        {
+            Header = "Back"
+        };
+        backItem.Classes.Add("timer-menu");
+        backItem.Click += Back_Click;
+
+        // Add items to flyout
+        flyout.Items.Add(pauseItem);
+        flyout.Items.Add(backItem);
+
+        // Attach flyout to button
+        menuButton.Flyout = flyout;
+
+        // Add button to your panel
+        timerPanel.Children.Add(menuButton);
+        //no longer Ai
+
+
+    }
+    private void SetPosition(string layoutPoint)
+    {
+        var screen = Screens.ScreenFromVisual(this) ?? Screens.Primary;
+        var area = screen.WorkingArea;
+        var w = (int)ClientSize.Width;
+        var h = (int)ClientSize.Height;
+
+        
+
+        int x = 0;
+        int y = 0;
+
+        switch (layoutPoint)
+        {
+            case "TopLeft":
+                x = area.X;
+                y = area.Y;
+                break;
+
+            case "TopCenter":
+                x = area.X + (area.Width - w) / 2;
+                y = area.Y;
+                break;
+
+            case "TopRight":
+                x = area.X + area.Width - w;
+                y = area.Y;
+                break;
+
+            case "LeftCenter":
+                x = area.X;
+                y = area.Y + (area.Height - h) / 2;
+                break;
+
+            case "RightCenter":
+                x = area.X + area.Width - w;
+                y = area.Y + (area.Height - h) / 2;
+                break;
+
+            case "BottomLeft":
+                x = area.X;
+                y = area.Y + area.Height - h;
+                break;
+
+            case "BottomCenter":
+                x = area.X + (area.Width - w) / 2;
+                y = area.Y + area.Height - h;
+                break;
+
+            case "BottomRight":
+                x = area.X + area.Width - w;
+                y = area.Y + area.Height - h;
+                break;
+        }
+
+        Position = new PixelPoint(x, y);
     }
 
     public void PlaySound()
@@ -63,12 +162,26 @@ public partial class TimePanel : Window
         Console.Beep();
     }
 
-    public void Back_Click(object sender, RoutedEventArgs e)
+    public void Back_Click(object? sender, RoutedEventArgs e)
     {
 
 
         new MainWindow().Show();
         this.Close();
+    }
+
+    private MenuItem pauseItem;
+    bool isPaused = true;
+
+    public void Pause_Click(object? sender, RoutedEventArgs e)
+    {
+        isPaused = !isPaused;
+        pauseItem.Header = isPaused ? "Paused" : "Resume";
+
+        foreach (ClassicTimer timer in timers)
+        {
+            timer.Pause();
+        }
     }
 }
 public class ClassicTimer
@@ -89,7 +202,8 @@ public class ClassicTimer
         
         HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
         VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-        Margin = new Thickness(10, 2, 10, 2)
+        Margin = new Thickness(4, 4, 10, 0)
+       
     };
     WorkUpdateTimerText(workTimeSet);
     panel.Children.Add(TimerTextBlock);
@@ -101,6 +215,7 @@ public class ClassicTimer
             Content = $" {name} Break",
             Margin = new Thickness(10),
             IsVisible = false
+    
         };
 
         ToBreak.Click += BreakButton_Click;
@@ -126,8 +241,8 @@ public class ClassicTimer
     int BreakTimeSet; 
     TextBlock TimerTextBlock;
 
-    Button ToBreak;
-    Button BackToWork;
+    Button? ToBreak;
+    Button? BackToWork;
 
     int Time;
 
@@ -176,7 +291,10 @@ public class ClassicTimer
                 WorktimeUpdate();
                 if (ClassicAktiv)
                 {
-                    ToBreak.IsVisible = false;
+                    if (ToBreak != null)
+                    {
+                        ToBreak.IsVisible = false;
+                    }
                     TimerTextBlock.IsVisible = true;
                     ClassicAktiv = false;
                 }
@@ -211,13 +329,23 @@ public class ClassicTimer
     /// </summary>
     public void WorktimeUpdate() 
     {
+        if (pauseBool)
+        {
             Time -= 1;
             if (Time > -1)
             {
                 WorkUpdateTimerText(Time);
             }
+        }
 
     }
+    bool pauseBool = true;
+    public void Pause()
+    {
+        pauseBool = !pauseBool;
+    }
+
+
 
     /// <summary>
     /// updates the DeepWork timer text on the UI with the remaining time in hours, minutes and seconds format
@@ -255,7 +383,7 @@ public class ClassicTimer
     /// <summary>
     /// function used to manually start the eye break by clicking the eye break button
     /// </summary>
-    public void BreakButton_Click(object sender, RoutedEventArgs e)
+    public void BreakButton_Click(object? sender, RoutedEventArgs e)
     {
 
         BreakButton_Click();
@@ -276,7 +404,7 @@ public class ClassicTimer
 
 
 
-    public void BackToWork_Click(object sender, RoutedEventArgs e)
+    public void BackToWork_Click(object? sender, RoutedEventArgs e)
     {
         BackToWork_Click();
     }

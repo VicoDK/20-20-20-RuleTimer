@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {}
+    "D:\\SimplyGreatTimer\\MyApp\\MyApp.csproj": {}
   },
   "projects": {
-    "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj": {
+    "D:\\SimplyGreatTimer\\MyApp\\MyApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
+        "projectUniqueName": "D:\\SimplyGreatTimer\\MyApp\\MyApp.csproj",
         "projectName": "MyApp",
-        "projectPath": "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
+        "projectPath": "D:\\SimplyGreatTimer\\MyApp\\MyApp.csproj",
         "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-        "outputPath": "D:\\20-20-20-RuleTimer\\MyApp\\obj\\",
+        "outputPath": "D:\\SimplyGreatTimer\\MyApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -67,12 +67,20 @@
               "version": "[12.0.4, )"
             },
             "AvaloniaUI.DiagnosticsSupport": {
+              "include": "None",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.2.1, )"
             },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.2, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0-rc.2.25502.107, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -86,6 +94,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[10.0.0-rc.2.25502.107, 10.0.0-rc.2.25502.107]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[10.0.0-rc.2.25502.107, 10.0.0-rc.2.25502.107]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[10.0.0-rc.2.25502.107, 10.0.0-rc.2.25502.107]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -366,6 +388,11 @@
             "System.Xml.XPath": "(,4.3.32767]",
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

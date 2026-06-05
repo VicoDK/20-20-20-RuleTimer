@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lvWeBW8Wuzw=",
+  "dgSpecHash": "L40rIcgS+jA=",
   "success": true,
-  "projectFilePath": "D:\\20-20-20-RuleTimer\\MyApp\\MyApp.csproj",
+  "projectFilePath": "D:\\SimplyGreatTimer\\MyApp\\MyApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victo\\.nuget\\packages\\avalonia\\12.0.4\\avalonia.12.0.4.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\avalonia.angle.windows.natives\\2.1.27548.20260419\\avalonia.angle.windows.natives.2.1.27548.20260419.nupkg.sha512",
@@ -29,12 +29,16 @@
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\microsoft.io.recyclablememorystream\\3.0.1\\microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.0-rc.2.25502.107\\microsoft.net.illink.tasks.10.0.0-rc.2.25502.107.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\skiasharp\\3.119.4\\skiasharp.3.119.4.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\skiasharp.nativeassets.linux\\3.119.4\\skiasharp.nativeassets.linux.3.119.4.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.119.4\\skiasharp.nativeassets.macos.3.119.4.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\skiasharp.nativeassets.webassembly\\3.119.4\\skiasharp.nativeassets.webassembly.3.119.4.nupkg.sha512",
     "C:\\Users\\victo\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.119.4\\skiasharp.nativeassets.win32.3.119.4.nupkg.sha512",
-    "C:\\Users\\victo\\.nuget\\packages\\tmds.dbus.protocol\\0.92.0\\tmds.dbus.protocol.0.92.0.nupkg.sha512"
+    "C:\\Users\\victo\\.nuget\\packages\\tmds.dbus.protocol\\0.92.0\\tmds.dbus.protocol.0.92.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.0-rc.2.25502.107\\microsoft.netcore.app.runtime.win-x64.10.0.0-rc.2.25502.107.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.0-rc.2.25502.107\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.0-rc.2.25502.107.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.0-rc.2.25502.107\\microsoft.aspnetcore.app.runtime.win-x64.10.0.0-rc.2.25502.107.nupkg.sha512"
   ],
   "logs": []
 }

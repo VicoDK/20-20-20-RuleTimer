@@ -8,7 +8,7 @@
         x:Class="MyApp.Views.TimePanel"
         x:DataType="local:TimePanel"
         Icon="/Assets/timer.ico"
-        Title="20/20/20 Rule timer"
+        Title="SimplyGreatTimer"
         SizeToContent="WidthAndHeight" CanResize="False"
         Background="#80000000"
         TransparencyLevelHint="Blur"
@@ -23,14 +23,7 @@
 
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <StackPanel> 
-            <Button x:Name="TimerNameBackToWorkButton" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="Back_Click"/>
-        </StackPanel>
-            <!--<StackPanel> 
-                <TextBlock x:Name="TimerName" Text="TimerName : StartTime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,2,10,2"/>
-                <Button x:Name="TimerNameBreakButton" Content="TimerName Break" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="BreakButton_Click"/>
-                <Button x:Name="TimerNameBackToWorkButton" Content="Back to Work" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Click="BackToWork_Click"/>
-            </StackPanel>-->
+
 
     
 

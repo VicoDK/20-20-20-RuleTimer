@@ -15,6 +15,7 @@
         Background="#E6000000"
         TransparencyLevelHint="Blur"
         WindowStartupLocation="Manual"
+        Foreground="White"
         >
         
 
@@ -25,28 +26,76 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
-        <TextBlock x:Name="WelcomeText" Text="Welcome to SimplyGreatTimer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TabControl Margin ="5">
+        <TabItem Header = "Main">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
+                <TextBlock x:Name="WelcomeText" Text="Welcome to SimplyGreatTimer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
-        <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <RadioButton Name="DeepWorkTimer" 
-        Content="Deep Work Timer"/>
-        <RadioButton Name="PomodoroTimer" 
-        Content="Pomodoro Timer"/>
-        <RadioButton Name="_52_17Timer" 
-        Content="52/17 Timer"/>
+                <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <RadioButton Name="DeepWorkTimer" 
+                Content="Deep Work Timer"/>
+                <RadioButton Name="PomodoroTimer" 
+                Content="Pomodoro Timer"/>
+                <RadioButton Name="_52_17Timer" 
+                Content="52/17 Timer"/>
+                <RadioButton Name="CustomeTimer" 
+                Content="CustomeTimer"
+                IsCheckedChanged="CustomeTimer_CheckedChanged"/>
+                
+                <!-- want to be centered-->
+                <Grid RowDefinitions="*,*"
+                    ColumnDefinitions="*,*"
+                    Name="CustomeTimerGrid"
+                    IsVisible = "false">
 
-        <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <CheckBox Name="TwentyTwentyTwentyTimer" 
-        Content="20/20/20 Timer"/>
-        <CheckBox Name="_30_30rule" 
-        Content="30-30 rule Timer"/>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Work Time in min"/>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="Break Time in min"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="0" Text="45" Name="CustomeTimerWorkTime"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="15" Name="CustomeTimerBreakTime"/>
+
+                </Grid>
+
+                <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <ToggleSwitch Name="TwentyTwentyTwentyTimer" OffContent="20/20/20 Timer" OnContent="20/20/20 Timer"/>
+                <ToggleSwitch Name="_30_30rule" OffContent="30-30 rule Timer" OnContent="30-30 rule Timer"/>
 
 
-        <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>
+                
 
-    </StackPanel>
+
+
+                <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>
+            </StackPanel>
+
+             </TabItem>
+             <TabItem Header = "Custome">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
+
+                    <TextBlock FontSize="24" Text="Layout" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock  Text="(To change Screen use Windows + Shirt + Arrows)" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Grid RowDefinitions="*,*,*"
+                        ColumnDefinitions="*,*,*"
+                        Name="LayoutButtons">
+                        <Button  Grid.Row="0" Grid.Column="0" x:Name="TopLeft" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Top <LineBreak/> Left </TextBlock> </Button >
+                        <Button  Grid.Row="0" Grid.Column="1" x:Name="TopCenter" Content="Top" Width="80" Height="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
+                        <Button  Grid.Row="0" Grid.Column="2" x:Name="TopRight" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Top <LineBreak/> Right </TextBlock> </Button >
+
+                        <Button  Grid.Row="1" Grid.Column="0" x:Name="LeftCenter" Content="Left" Width="80" Height="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
+                        <Button  Grid.Row="1" Grid.Column="2" x:Name="RightCenter" Content="Right" Width="80" Height="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
+
+                        <Button  Grid.Row="2" Grid.Column="0" x:Name="BottomLeft" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Bottom <LineBreak/> Left </TextBlock> </Button >
+                        <Button  Grid.Row="2" Grid.Column="1" x:Name="BottomCenter" Content="Bottom" Width="80" Height="80"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
+                        <Button  Grid.Row="2" Grid.Column="2" x:Name="BottomRight" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Bottom <LineBreak/> Right </TextBlock> </Button >
+                    </Grid>
+                </StackPanel>
+             </TabItem>
+    </TabControl>
+
 </Window>
