@@ -12,6 +12,11 @@ public partial class MainWindow : Window
     string LayoutPoint = "TopLeft";
     List<ClassicTimerPreset> ClassicTimerPreset = new();
 
+
+    //Continue
+    public List<ClassicTimer> TimerContinue = new List<ClassicTimer>();
+    public List<int> TimesRemaining = new List<int>();
+
     public MainWindow()
     {
         InitializeComponent();
@@ -83,6 +88,22 @@ public partial class MainWindow : Window
 
         }
 
+        if (CountDown.IsChecked == true)
+        {
+                        TimerSelected = true;
+            var preset = new ClassicTimerPreset(
+                (int.TryParse(CountDownTimerWorkTime.Text, out var w) ? w : 1) * 60,
+                0,
+                false,
+                false,
+                "CountDown"
+            );
+
+            ClassicTimerPreset.Add(preset);
+        }
+        
+
+
         //Extra Timers
         if (TwentyTwentyTwentyTimer.IsChecked == true)
         {
@@ -123,10 +144,58 @@ public partial class MainWindow : Window
 
     }
 
+    public void Continue(object? sender, RoutedEventArgs e)
+    {
+
+        for (int i = 0; i < TimerContinue.Count; i++)
+        {
+            bool ToWorkButton = false;
+            bool ToBreakButton= false;
+
+            if (TimerContinue[i].ToBreak != null)
+            {
+                ToBreakButton = true;
+            }
+
+            if (TimerContinue[i].BackToWork != null)
+            {
+                ToWorkButton = true;
+            }
+
+            var preset = new ClassicTimerPreset(
+                TimerContinue[i].WorkTimeSet,
+                TimerContinue[i].BreakTimeSet,
+                ToBreakButton,
+                ToWorkButton,
+                TimerContinue[i].Name
+            );
+
+            
+            ClassicTimerPreset.Add(preset);
+        }
+        TimePanel timePanel = new TimePanel(ClassicTimerPreset, LayoutPoint);
+
+         for (int i = 0; i < timePanel.timers.Count; i++)
+        {
+            timePanel.timers[i].Time = TimesRemaining[i];
+
+        }
+        timePanel.Show();
+        this.Close();
+        
+    }
+
     public void CustomeTimer_CheckedChanged(object? sender, RoutedEventArgs e)
     {
 
         CustomeTimerGrid.IsVisible = CustomeTimer.IsChecked ?? false; 
+        
+    }
+
+    public void CountDownTimer_CheckedChanged(object? sender, RoutedEventArgs e)
+    {
+
+        CountDownTimeStackPanel.IsVisible = CountDown.IsChecked ?? false; 
         
     }
 
@@ -171,5 +240,6 @@ public class ClassicTimerPreset
         ToBreakButton = toBreakButton;
         BackToWorkButton = backToWorkButton;
         Name = name;
+
     }
 }

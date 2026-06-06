@@ -44,7 +44,7 @@
                 Content="CustomeTimer"
                 IsCheckedChanged="CustomeTimer_CheckedChanged"/>
                 
-                <!-- want to be centered-->
+
                 <Grid RowDefinitions="*,*"
                     ColumnDefinitions="*,*"
                     Name="CustomeTimerGrid"
@@ -56,22 +56,24 @@
 
                     <TextBox Grid.Row="1" Grid.Column="0" Text="45" Name="CustomeTimerWorkTime"/>
 
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="15" Name="CustomeTimerBreakTime"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="15" Name="CustomeTimerBreakTime" />
 
                 </Grid>
 
-                <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <RadioButton Name="CountDown" 
+                Content="CountDownTimer"
+                IsCheckedChanged="CountDownTimer_CheckedChanged"
+/>
+                <StackPanel Orientation = "Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0" IsVisible = "false" x:Name="CountDownTimeStackPanel">
+                    <Label Content="Work Time in min" VerticalAlignment="Center"/>
+                    <TextBox Text="45" Name="CountDownTimerWorkTime"/>
+                </StackPanel>
 
-                <ToggleSwitch Name="TwentyTwentyTwentyTimer" OffContent="20/20/20 Timer" OnContent="20/20/20 Timer"/>
-                <ToggleSwitch Name="_30_30rule" OffContent="30-30 rule Timer" OnContent="30-30 rule Timer"/>
 
-
-                
-
-
-
-                <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>
+                <StackPanel Orientation = "Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
+                    <Button Name="ContinueButton" Content="Continue" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="Continue" IsVisible = "false"/>
+                    <Button Name="StartButton" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Click="StartButton_Click"/>
+                </StackPanel>
             </StackPanel>
 
              </TabItem>
@@ -82,7 +84,9 @@
                     <TextBlock  Text="(To change Screen use Windows + Shirt + Arrows)" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Grid RowDefinitions="*,*,*"
                         ColumnDefinitions="*,*,*"
-                        Name="LayoutButtons">
+                        Name="LayoutButtons"
+                        Width="240" Height="240"
+                        HorizontalAlignment="Left">
                         <Button  Grid.Row="0" Grid.Column="0" x:Name="TopLeft" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Top <LineBreak/> Left </TextBlock> </Button >
                         <Button  Grid.Row="0" Grid.Column="1" x:Name="TopCenter" Content="Top" Width="80" Height="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
                         <Button  Grid.Row="0" Grid.Column="2" x:Name="TopRight" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Top <LineBreak/> Right </TextBlock> </Button >
@@ -94,6 +98,12 @@
                         <Button  Grid.Row="2" Grid.Column="1" x:Name="BottomCenter" Content="Bottom" Width="80" Height="80"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="PositionButton_Click"/>
                         <Button  Grid.Row="2" Grid.Column="2" x:Name="BottomRight" Width="80" Height="80" Click="PositionButton_Click"> <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"> Bottom <LineBreak/> Right </TextBlock> </Button >
                     </Grid>
+
+                <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="Special Timers" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                <ToggleSwitch Name="TwentyTwentyTwentyTimer" OffContent="20/20/20 Timer" OnContent="20/20/20 Timer"/>
+                <ToggleSwitch Name="_30_30rule" OffContent="30-30 rule Timer" OnContent="30-30 rule Timer"/>
                 </StackPanel>
              </TabItem>
     </TabControl>

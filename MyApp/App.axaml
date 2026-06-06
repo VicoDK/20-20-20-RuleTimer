@@ -73,9 +73,6 @@
             <Setter Property="Background" Value="Black"/>
         </Style>
 
-        
-
-  
 
     </Application.Styles>
 

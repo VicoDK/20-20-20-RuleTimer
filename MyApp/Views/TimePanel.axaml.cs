@@ -9,21 +9,68 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Layout;
 using System.Formats.Asn1;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace MyApp.Views;
 
 public partial class TimePanel : Window
 {
+    #region PreventSleep
+    //this is for the pc not going to sleep while using the timer
+    [DllImport("kernel32.dll")]
+    private static extern uint SetThreadExecutionState(uint esFlags);
+
+    private const uint ES_CONTINUOUS = 0x80000000;
+    private const uint ES_SYSTEM_REQUIRED = 0x00000001;
+
+    private Process? _caffeinateProcess;
+
+    public void DontSleep()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            SetThreadExecutionState(
+                ES_CONTINUOUS | ES_SYSTEM_REQUIRED);
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            if (_caffeinateProcess == null)
+            {
+                _caffeinateProcess = Process.Start("caffeinate");
+            }
+        }
+    }
+
+    public void EnableSleep()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            SetThreadExecutionState(ES_CONTINUOUS);
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            _caffeinateProcess?.Kill();
+            _caffeinateProcess?.Dispose();
+            _caffeinateProcess = null;
+        }
+    }
+    #endregion
+
+    #region Setup of timer
     DispatcherTimer timer;
 
-    List<ClassicTimer> timers = new();   // FIXED (was null before)
+    public List<ClassicTimer> timers = new();   // FIXED (was null before)
     StackPanel timerPanel = new StackPanel();
 
 
     public TimePanel(List<ClassicTimerPreset> presets, string LayoutPoint)
     {
+
+
         InitializeComponent();
 
+        DontSleep();
         this.Opened += (_, __) => SetPosition(LayoutPoint); 
 
         timer = new DispatcherTimer();
@@ -156,7 +203,9 @@ public partial class TimePanel : Window
 
         Position = new PixelPoint(x, y);
     }
+    #endregion
 
+    #region Functions for timer ui
     public void PlaySound()
     {
         Console.Beep();
@@ -165,8 +214,17 @@ public partial class TimePanel : Window
     public void Back_Click(object? sender, RoutedEventArgs e)
     {
 
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.TimerContinue = timers ;
 
-        new MainWindow().Show();
+        foreach (ClassicTimer times in timers)
+        {
+            mainWindow.TimesRemaining.Add(times.Time);
+        }
+
+        mainWindow.ContinueButton.IsVisible = true;
+        EnableSleep();
+        mainWindow.Show();
         this.Close();
     }
 
@@ -178,15 +236,26 @@ public partial class TimePanel : Window
         isPaused = !isPaused;
         pauseItem.Header = isPaused ? "Paused" : "Resume";
 
+        if (isPaused)
+        {
+            EnableSleep();
+        }
+        else
+        {
+            DontSleep();
+        }
+        
+
         foreach (ClassicTimer timer in timers)
         {
             timer.Pause();
         }
     }
+    #endregion
 }
 public class ClassicTimer
 {
-
+    #region Setup of timer
     public string Name;
     public ClassicTimer(int workTimeSet, int breakTimeSet, bool needToBreakButton, bool needBackToWorkButton, string name, StackPanel timerPanel)
 {
@@ -235,17 +304,19 @@ public class ClassicTimer
         panel.Children.Add(BackToWork);
     }
 }
+#endregion
 
 
-    int WorkTimeSet; 
-    int BreakTimeSet; 
+    public int WorkTimeSet; 
+    public int BreakTimeSet; 
     TextBlock TimerTextBlock;
 
-    Button? ToBreak;
-    Button? BackToWork;
+    public Button? ToBreak;
+    public Button? BackToWork;
 
-    int Time;
+    public int Time;
 
+    #region Timerstates
     public enum ClassicTimerState //Enum for Time states to DeepWork timer
     {
         Work,
@@ -264,15 +335,16 @@ public class ClassicTimer
         {
             case ClassicTimerState.Work:
                 WorktimeUpdate();
-                if (Time < 0 || Time == 0)
+                if (Time <= 0 || BreakTimeSet != 0)
                 {
                     WorkTimerState = ClassicTimerState.DeepWorkToBreak;
                 }
                 break;
             case ClassicTimerState.DeepWorkToBreak:
-                if (!ClassicAktiv)
+                if (!ClassicAktiv && BreakTimeSet != 0)
                 {
-                    PlaySound();
+
+                    WorkDoneSound();
                     if (ToBreak != null)
                     {
                         ToBreak.IsVisible = true;
@@ -286,6 +358,10 @@ public class ClassicTimer
                     TimerTextBlock.IsVisible = false;
                     ClassicAktiv = true;
                 }
+                else if (BreakTimeSet == 0)
+                {
+                    BreakDoneSound();
+                }
                 break;
             case ClassicTimerState.BreakTime:
                 WorktimeUpdate();
@@ -298,7 +374,7 @@ public class ClassicTimer
                     TimerTextBlock.IsVisible = true;
                     ClassicAktiv = false;
                 }
-                if (Time < 0 || Time == 0)
+                if (Time <= 0)
                 {
                     WorkTimerState = ClassicTimerState.BreakToDeepWork;
                 }
@@ -317,16 +393,15 @@ public class ClassicTimer
                     BackToWork_Click();
                     
                 }
-                PlaySound();
+                BreakDoneSound();
                 break;
         }
         
     }
+    #endregion
     
-    
-    /// <summary>
-    /// function that updates the DeepWork timer by decreasing the remaining seconds and updating the timer text on the UI
-    /// </summary>
+    #region TimerFunctions
+
     public void WorktimeUpdate() 
     {
         if (pauseBool)
@@ -345,11 +420,6 @@ public class ClassicTimer
         pauseBool = !pauseBool;
     }
 
-
-
-    /// <summary>
-    /// updates the DeepWork timer text on the UI with the remaining time in hours, minutes and seconds format
-    /// </summary>
     public void WorkUpdateTimerText(int text)
     {
         int hours = text / 3600;
@@ -380,21 +450,19 @@ public class ClassicTimer
         
     }
 
-    /// <summary>
-    /// function used to manually start the eye break by clicking the eye break button
-    /// </summary>
     public void BreakButton_Click(object? sender, RoutedEventArgs e)
     {
 
         BreakButton_Click();
     }
 
+    /*dont know why this is here but will keep it if it somehow is used 
     public void AutopBreakButton_Click()
     {
         PlaySound();
 
         
-    }
+    }*/
 
     public void BreakButton_Click()
     {
@@ -423,8 +491,15 @@ public class ClassicTimer
 
     }
 
-    public void PlaySound()
+    public void BreakDoneSound()
     {
         System.Console.Beep();
     }
+
+    public void WorkDoneSound()
+    {
+        System.Console.Beep();
+    }
+
+    #endregion
 }
