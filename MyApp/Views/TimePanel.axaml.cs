@@ -99,51 +99,51 @@ public partial class TimePanel : Window
         
 
   
-var menuButton = new Button
-{
-    Content = "Menu",
-    Margin = new Thickness(10),
-    HorizontalAlignment = HorizontalAlignment.Stretch
-};
+        var menuButton = new Button
+        {
+            Content = "Menu",
+            Margin = new Thickness(10),
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
 
-menuButton.Classes.Add("timer-button");
+        menuButton.Classes.Add("timer-button");
 
-// Create flyout
-var flyout = new MenuFlyout
-{
-    Placement = PlacementMode.BottomEdgeAlignedLeft
-};
+        // Create flyout
+        var flyout = new MenuFlyout
+        {
+            Placement = PlacementMode.BottomEdgeAlignedLeft
+        };
 
-// Pause item
-pauseItem = new MenuItem
-{
-    Header = "Pause",
-    MinWidth = 120
-};
+        // Pause item
+        pauseItem = new MenuItem
+        {
+            Header = "Pause",
+            MinWidth = 120
+        };
 
-pauseItem.Classes.Add("timer-menu");
-pauseItem.Click += Pause_Click;
+        pauseItem.Classes.Add("timer-menu");
+        pauseItem.Click += Pause_Click;
 
-// Back item
-var backItem = new MenuItem
-{
-    Header = "Back",
-    MinWidth = 120
-};
+        // Back item
+        var backItem = new MenuItem
+        {
+            Header = "Back",
+            MinWidth = 120
+        };
 
 
-backItem.Classes.Add("timer-menu");
-backItem.Click += Back_Click;
+        backItem.Classes.Add("timer-menu");
+        backItem.Click += Back_Click;
 
-// Add items
-flyout.Items.Add(pauseItem);
-flyout.Items.Add(backItem);
+        // Add items
+        flyout.Items.Add(pauseItem);
+        flyout.Items.Add(backItem);
 
-// Attach flyout
-menuButton.Flyout = flyout;
+        // Attach flyout
+        menuButton.Flyout = flyout;
 
-// Add to panel
-timerPanel.Children.Add(menuButton);
+        // Add to panel
+        timerPanel.Children.Add(menuButton);
 
 
     }
@@ -225,6 +225,7 @@ timerPanel.Children.Add(menuButton);
 
         mainWindow.ContinueButton.IsVisible = true;
         EnableSleep();
+        timer.Stop();
         mainWindow.Show();
         this.Close();
     }

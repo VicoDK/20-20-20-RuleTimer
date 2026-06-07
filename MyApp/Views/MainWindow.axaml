@@ -37,7 +37,7 @@
                 <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBlock Text="WorkTimers" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <RadioButton Name="DeepWorkTimer" 
-                Content="Deep Work Timer"/>
+                Content="Deep Work Timer"  />
                 <RadioButton Name="PomodoroTimer" 
                 Content="Pomodoro Timer"/>
                 <RadioButton Name="_52_17Timer" 
@@ -114,6 +114,13 @@
                 <TextBlock Text=" " HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 <TextBlock Text="Colors" HorizontalAlignment="Left" FontSize="24"/>
+                    <StackPanel Orientation = "Horizontal" VerticalAlignment="Center"  Spacing="0" HorizontalAlignment="Stretch">
+                        <Label Content="ColorCode : " VerticalAlignment="Center"/>
+                        <TextBox HorizontalAlignment="Stretch" x:Name="ColorCode"  Text="3498db" />
+                        <Button Content="Change Color" Click="ChangeColor_Click"/>
+
+
+                    </StackPanel>
 
 
                 </StackPanel>

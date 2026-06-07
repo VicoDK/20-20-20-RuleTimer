@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia;
+
 
 
 namespace MyApp.Views;
@@ -215,6 +217,16 @@ public partial class MainWindow : Window
 
         _selectedButton = clickedButton;
         LayoutPoint = _selectedButton.Name;
+    }
+
+    void ChangeColor_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ColorCode.Text == null)
+            return;
+
+        
+
+        Application.Current.Resources["TextBrush"] = new SolidColorBrush(Color.Parse("#" + ColorCode.Text));
     }
 
 

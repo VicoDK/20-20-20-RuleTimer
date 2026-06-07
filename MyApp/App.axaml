@@ -21,46 +21,55 @@
 
         <!-- Your global overrides -->
         <Style Selector="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}" />
         </Style>
 
         <Style Selector="RadioButton">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}" />
         </Style>
 
         <Style Selector="CheckBox">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}" />
         </Style>
 
         <Style Selector="Button.timer-button">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <Style Selector="Button.timer-button:pointerover /template/ ContentPresenter">
-            <Setter Property="TextBlock.Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <Style Selector="Button.timer-button:pressed /template/ ContentPresenter">
-            <Setter Property="TextBlock.Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="TextBlock.Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <!-- Base (normal state) -->
         <Style Selector="MenuItem.timer-menu /template/ ContentPresenter">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <!-- Hover -->
         <Style Selector="MenuItem.timer-menu:pointerover /template/ ContentPresenter">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <!-- Pressed -->
         <Style Selector="MenuItem.timer-menu:pressed /template/ ContentPresenter">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
         <Style Selector="MenuItem.timer-menu:pointerover /template/ ContentPresenter">
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
+        </Style>
+
+         <Style Selector="Button">
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
+        </Style> 
+
+
+        <Style Selector="Label">
+            <Setter Property="Foreground" Value="{DynamicResource  TextBrush}"/>
         </Style>
 
 
